@@ -23,4 +23,10 @@
 
 /picture
 
-#### Credits?
+#### Concluding Remarks
+
+We welcome collaboration! 
+Please help us improve the source code by creating pull requests! We welcome any feedback! 
+For general questions, please direct them to _nautiyallab@gmail.com_
+
+
