@@ -2,12 +2,16 @@
 * 2/27/19
 * JHL
 *
-* Head Pokes trigger solenoid reward in each port
-* for ex) if port 8 detects head poke, delivers reward and records it
+* Head Pokes trigger solenoid reward in each port respectively (for a given amount of time ex: 200ms)
+* for ex) if port 8 detects head poke, delivers reward for 200ms and records it
 *
 * remove the LED blinking part
 * retain the button functionality so that we can test solenoids working or not
+*
+* Future To-Dos: Refactor Code into functions with emphasis on modularity! 
+*
 */
+
 
 // coding schemes:
 // On : 100
@@ -244,7 +248,7 @@ void solenoid_on() {
        Serial.println(sol_on_5);
        // can't come in to this loop in the first place bc its nested in the if() above!!
     }
-    
+
     if (sol_State_5 == HIGH && currentMillis - sol_on_5 >= sol_interval) {  //poke_in_8 = false &&
         sol_State_5 = LOW;
         digitalWrite(port_solenoid_5, sol_State_5);
