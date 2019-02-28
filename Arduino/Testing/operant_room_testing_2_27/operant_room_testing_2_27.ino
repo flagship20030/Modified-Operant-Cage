@@ -58,7 +58,7 @@ boolean poke_in_10 = false;
 boolean poke_in_11 = false;
 
 // constants won't change:
-const long sol_interval = 500;           // LED + solenoid interval
+const long sol_interval = 20;           // LED + solenoid interval
 
 // * * * * * * * * * * * S E T U P * * * * * * * * * * * * * * *
 
@@ -193,8 +193,8 @@ void solenoid_on() {
        sol_State_3 = HIGH;
        digitalWrite(port_solenoid_3, sol_State_3);
        sol_on_3 = millis();
-       Serial.print("3100: ");
-       // Serial.print("solenoid On at 3: ");
+       // Serial.print("3100: ");
+       Serial.print("solenoid On at 3: ");
        Serial.println(sol_on_3);
        // theoretically, currentMillis output and sol_on_3 output time should be the same!
       }
@@ -204,50 +204,57 @@ void solenoid_on() {
         sol_State_3 = LOW;
         digitalWrite(port_solenoid_3, sol_State_3);
         sol_off_3 = millis();
-        Serial.print("3001: ");
-        // Serial.print("solenoid Off at 3: ");
+        // Serial.print("3001: ");
+        Serial.print("solenoid Off at 3: ");
         Serial.println(sol_off_3);
         // theoretically currentMillis should be sol_off_3 + sol_interval value
-       }
-
-
+    }
 
    if (poke_in_10) {
        poke_in_10 = false;
-       digitalWrite(port_solenoid_4, HIGH);
+       sol_State_4 = HIGH;
+       digitalWrite(port_solenoid_4, sol_State_4);
        sol_on_4 = millis();
-       Serial.print("4100: ");
-       // Serial.print("solenoid On at 4: ");
+       // Serial.print("4100: ");
+       Serial.print("solenoid On at 4: ");
        Serial.println(sol_on_4);
        // theoretically, currentMillis output and sol_on_4 output time should be the same!
-       if (poke_in_10 = false && currentMillis - sol_on_4 >= sol_interval) {
-           digitalWrite(port_solenoid_4, LOW);
-           sol_off_4 = millis();
-           Serial.print("4001: ");
-           // Serial.print("solenoid Off at 4: ");
-           Serial.println(sol_off_4);
-           // theoretically currentMillis should be sol_off_4 + sol_interval value
        }
-   }
+
+       // breaking out of above loop is crucial!!!
+
+       // can't come in to this loop in the first place bc its nested in the if() above!!
+    if (sol_State_4 == HIGH && currentMillis - sol_on_4 >= sol_interval) {  //poke_in_8 = false &&
+        sol_State_4 = LOW;
+        digitalWrite(port_solenoid_4, sol_State_4);
+        sol_off_4 = millis();
+        // Serial.print("4001: ");
+        Serial.print("solenoid Off at 4: ");
+        Serial.println(sol_off_4);
+        // theoretically currentMillis should be sol_off_3 + sol_interval value
+       }
 
     if (poke_in_11) {
        poke_in_11 = false;
-       digitalWrite(port_solenoid_5, HIGH);
+       sol_State_5 = HIGH;
+       digitalWrite(port_solenoid_5, sol_State_5);
        sol_on_5 = millis();
-       Serial.print("5100: ");
-       // Serial.print("solenoid On at 5: ");
+       // Serial.print("5100: ");
+       Serial.print("solenoid On at 5: ");
        Serial.println(sol_on_5);
-       // theoretically, currentMillis output and sol_on_5 output time should be the same!
-       if (poke_in_11 = false && currentMillis - sol_on_5 >= sol_interval) {
-           digitalWrite(port_solenoid_5, LOW);
-           sol_off_5 = millis();
-           Serial.print("5001: ");
-           // Serial.print("solenoid Off at 5: ");
-           Serial.println(sol_off_5);
-           // theoretically currentMillis should be sol_off_5 + sol_interval value
-         }
+       // can't come in to this loop in the first place bc its nested in the if() above!!
+    }
+    
+    if (sol_State_5 == HIGH && currentMillis - sol_on_5 >= sol_interval) {  //poke_in_8 = false &&
+        sol_State_5 = LOW;
+        digitalWrite(port_solenoid_5, sol_State_5);
+        sol_off_5 = millis();
+        // Serial.print("5001: ");
+        Serial.print("solenoid Off at 5: ");
+        Serial.println(sol_off_5);
+        // theoretically currentMillis should be sol_off_3 + sol_interval value
+       }
      }
-  }
 
 
 void button_push() {
