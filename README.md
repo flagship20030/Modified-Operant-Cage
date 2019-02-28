@@ -3,7 +3,7 @@
 #### Objective:
 
 - Create **AIM** _(Arduino Intelligent Module)_ to gather data 24/7 nonstop in the subject's home cage
-- Hopes to replace current operant boxes by **Med Associates** by making the boxes _hackable, modular and inexpensive_ using Arduino
+- Hopes to replace the current operant boxes from **Med Associates** by making the boxes _hackable, modular and inexpensive_ using Arduino microprocessor
 
 
 #### Components Used:
