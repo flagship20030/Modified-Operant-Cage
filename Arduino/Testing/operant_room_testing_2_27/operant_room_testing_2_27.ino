@@ -188,24 +188,29 @@ void solenoid_on() {
    static unsigned long sol_on_5 = 0;
    static unsigned long sol_off_5 = 0;
 
-   if (poke_in_11) {
-       poke_in_11 = false;
-       digitalWrite(port_solenoid_5, HIGH);
-       sol_on_5 = millis();
-       Serial.print("5100: ");
-       // Serial.print("solenoid On at 5: ");
-       Serial.println(sol_on_5);
-       // theoretically, currentMillis output and sol_on_5 output time should be the same!
-       if (poke_in_11 = false && currentMillis - sol_on_5 >= sol_interval) {
-           digitalWrite(port_solenoid_5, LOW);
-           sol_off_5 = millis();
-           Serial.print("5001: ");
-           // Serial.print("solenoid Off at 5: ");
-           Serial.println(sol_off_5);
-           // theoretically currentMillis should be sol_off_5 + sol_interval value
-          }
+   if (poke_in_8) {
+       poke_in_8 = false;
+       sol_State_3 = HIGH;
+       digitalWrite(port_solenoid_3, sol_State_3);
+       sol_on_3 = millis();
+       Serial.print("3100: ");
+       // Serial.print("solenoid On at 3: ");
+       Serial.println(sol_on_3);
+       // theoretically, currentMillis output and sol_on_3 output time should be the same!
+      }
+
+       // can't come in to this loop in the first place bc its nested in the if() above!!
+    if (sol_State_3 == HIGH && currentMillis - sol_on_3 >= sol_interval) {  //poke_in_8 = false &&
+        sol_State_3 = LOW;
+        digitalWrite(port_solenoid_3, sol_State_3);
+        sol_off_3 = millis();
+        Serial.print("3001: ");
+        // Serial.print("solenoid Off at 3: ");
+        Serial.println(sol_off_3);
+        // theoretically currentMillis should be sol_off_3 + sol_interval value
        }
-   }
+
+
 
    if (poke_in_10) {
        poke_in_10 = false;
@@ -240,9 +245,10 @@ void solenoid_on() {
            // Serial.print("solenoid Off at 5: ");
            Serial.println(sol_off_5);
            // theoretically currentMillis should be sol_off_5 + sol_interval value
-       }
-   }
-}
+         }
+     }
+  }
+
 
 void button_push() {
 
